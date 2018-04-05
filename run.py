@@ -1,9 +1,9 @@
 import sqlite3
 import datetime
 from terminaltables import AsciiTable
+#python3!
 
-print("This is my Tv-series tracker")
-
+print("Bölüm takipçisi!")
 
 def ask(son_id):
 	print("Yeni dizi eklemek için 0 girin.")
@@ -34,14 +34,12 @@ def main():
 	c = con.cursor()
 
 	c.execute("select * from diziler")
-	#result = c.fetchall()
-
-
+	
 	table_data = [
 		['ID', 'Dizi Adı', 'Sezon', 'Son İzlenen Bölüm', 'Tarih']]
 		
 
-	new_list = [] #burada table_data yi adam gibi bir formata sokabilmek icin bu kadar ugrastim
+	new_list = [] #table_data yi duzgun bi formata sokmaya calisiyoruz
 
 	while True:
 		row = c.fetchone()
@@ -70,14 +68,8 @@ def main():
 	table = AsciiTable(table_data)
 	print(table.table)	
 
-		
-		
 	secenek = ask(son_id) #ask dan return ettigimiz degeri secenek e esitledik
 
-
-	'''if(secenek > son_id):
-		print("Lütfen geçerli bir ID girin")
-		secenek = ask()'''
 	if(secenek == 0):
 		print("yeni dizi")
 		dizi_adi = input("Dizinin adı nedir?\n")
@@ -89,8 +81,6 @@ def main():
 		print("Eklendi!")
 		
 	else:
-		#print(secenek , " id li dizi değiştirilecek")
-		print(secenek)
 		c.execute("select * from diziler where id = ?", (secenek,)) #secenegin yanina virgul koyunca duzeldi
 		con.commit()
 		result = c.fetchone()
